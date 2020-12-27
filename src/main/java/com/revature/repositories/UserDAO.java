@@ -34,7 +34,7 @@ public class UserDAO {
 			}
 
 		} catch (SQLException e) {
-//handle exception using custom exception
+			e.printStackTrace();
 		}
 
 		return currentUser;
