@@ -29,7 +29,7 @@ public class AuthServlet extends HttpServlet {
 		boolean validated = service.validateUser(user);
 		HttpSession session = request.getSession();
 		if (validated == true) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("views/employee");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("views/employee.html");
 			dispatcher.forward(request, response);
 		} else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("views/login.html");
