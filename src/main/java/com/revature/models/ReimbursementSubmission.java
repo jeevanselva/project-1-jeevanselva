@@ -1,8 +1,9 @@
 package com.revature.models;
 
 public class ReimbursementSubmission {
-	int amount;
-	String description;
-	int status;
-	int type;
+	private int authorId;
+	private double amount;
+	private String description;
+	private String status;
+	private String type;
 }

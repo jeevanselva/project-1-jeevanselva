@@ -10,10 +10,11 @@ import com.revature.models.UserCredential;
 import com.revature.util.ConnectionFactory;
 
 public class UserDAO {
-	ConnectionFactory cf = new ConnectionFactory();
+	ConnectionFactory cf;
 
 	public UserDAO() {
 		super();
+		this.cf = new ConnectionFactory();
 	}
 
 	public CurrentUser validatUserAndPassword(UserCredential user) {
