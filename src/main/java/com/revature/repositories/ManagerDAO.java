@@ -16,7 +16,7 @@ public class ManagerDAO {
 		this.cf = new ConnectionFactory();
 	}
 
-	public ListOfReimbursements readEmployeeTickets() {
+	public ListOfReimbursements readEmployeeReimbursements() {
 
 		ListOfReimbursements list = new ListOfReimbursements();
 		Reimbursement reimbursement = new Reimbursement();
@@ -55,6 +55,25 @@ public class ManagerDAO {
 
 		return list;
 
+	}
+
+	public void updateReimbursementStatus(Reimbursement reimbursement) {
+
+		try {
+			Connection newConnection = ConnectionFactory.getNewConnection();
+
+			String sql = "update ers_reimbursement_status set reimb_status " + "= ? from ers_reimbursement where "
+					+ " ers_reimbursement_status.reimb_status_id=ers_reimbursement.reimb_status_id"
+					+ " and ers_reimbursement.reimb_id = ? returning " + "ers_reimbursement_status.reimb_status;";
+
+			PreparedStatement updateReimbursementStatement = newConnection.prepareStatement(sql);
+			updateReimbursementStatement.setString(1, reimbursement.getStatus());
+			updateReimbursementStatement.setInt(2, reimbursement.getReimbursementId());
+			ResultSet result = updateReimbursementStatement.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

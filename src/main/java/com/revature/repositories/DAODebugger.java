@@ -1,7 +1,7 @@
 package com.revature.repositories;
 
 import com.revature.models.CurrentUser;
-import com.revature.models.ListOfReimbursements;
+import com.revature.models.Reimbursement;
 
 public class DAODebugger {
 	public static void main(String[] args) {
@@ -11,9 +11,15 @@ public class DAODebugger {
 		// EmployeeDAO dao = new EmployeeDAO(user);
 		ManagerDAO dao = new ManagerDAO();
 
-		ListOfReimbursements list = dao.readEmployeeTickets();
+		Reimbursement r = new Reimbursement();
+		r.setStatus("Test");
+		r.setReimbursementId(2);
 
-		System.out.println(list.toString());
+		dao.updateReimbursementStatus(r);
+
+		// ListOfReimbursements list = dao.readEmployeeReimbursements();
+
+		// System.out.println(list.toString());
 
 	}
 

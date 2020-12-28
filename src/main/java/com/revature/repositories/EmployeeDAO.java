@@ -19,7 +19,7 @@ public class EmployeeDAO {
 		this.cf = new ConnectionFactory();
 	}
 
-	public ListOfReimbursements readAllTickets() {
+	public ListOfReimbursements readAllReimbursements() {
 
 		ListOfReimbursements list = new ListOfReimbursements();
 		EmployeeReimbursement reimbursement = new EmployeeReimbursement();
