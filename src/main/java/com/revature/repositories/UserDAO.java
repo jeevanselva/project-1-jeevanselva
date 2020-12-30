@@ -17,21 +17,27 @@ public class UserDAO {
 		this.cf = new ConnectionFactory();
 	}
 
+//modify query to get user role
 	public CurrentUser validatUserAndPassword(UserCredential user) {
 		CurrentUser currentUser = new CurrentUser();
 		try {
 
 			Connection newConnection = ConnectionFactory.getNewConnection();
-			String sql = "select * from ers_users where ers_username=? and ers_password=?";
+			String sql = "select ers_users.ers_users_id, ers_users.user_first_name,"
+					+ " ers_users.user_last_name, ers_user_roles.user_role from"
+					+ " ers_users inner join ers_user_roles on ers_users.user_role_id ="
+					+ " ers_user_roles.ers_user_role_id where ers_username=? " + "and ers_password = ?;";
 			PreparedStatement validateUserStatement = newConnection.prepareStatement(sql);
 			validateUserStatement.setString(1, user.getUserName());
 			validateUserStatement.setString(2, user.getPassword());
 			ResultSet result = validateUserStatement.executeQuery();
 			if (result.next()) {
+
 				currentUser.setFirstName(result.getString("user_first_name"));
 				currentUser.setLastName(result.getString("user_last_name"));
 				currentUser.setUserId(result.getInt("ers_users_id"));
-				// currentUser.setUserRole(result.getString("user_role"));
+				currentUser.setUserRole(result.getString("user_role"));
+				currentUser.setValidated(true);
 			}
 
 		} catch (SQLException e) {

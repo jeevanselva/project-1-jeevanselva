@@ -11,12 +11,8 @@ public class UserService {
 		this.dao = new UserDAO();
 	}
 
-	public boolean validateUser(UserCredential user) {
+	public CurrentUser validateUser(UserCredential user) {
 		CurrentUser currentUser = dao.validatUserAndPassword(user);
-		if (currentUser.getFirstName() == null) {
-			return false;
-		} else {
-			return true;
-		}
+		return currentUser;
 	}
 }

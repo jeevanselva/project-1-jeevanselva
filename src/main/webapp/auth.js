@@ -4,18 +4,21 @@ async function loginSubmission(e){
     let password = document.getElementById("inputPassword").value
 
     const credentials = {
-        username:userName,
+        userName:userName,
         password:password
     }
 
     try {
-    let response = await fetch ("http://localhost.8080/ers/login", {
+    let response = await fetch ("http://localhost:8080/ers/login", {
         method: "POST",
         body: JSON.stringify(credentials),
         headers: {
             "Content-Type":"application/json"
         }
     })
+
+    let data = await response.json
+    console.log("test")
 
 } catch (e) {
     console.log(e);

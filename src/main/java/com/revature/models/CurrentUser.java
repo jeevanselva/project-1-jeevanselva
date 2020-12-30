@@ -5,6 +5,7 @@ public class CurrentUser {
 	private String firstName;
 	private String lastName;
 	private String userRole;
+	private boolean validated;
 
 	public CurrentUser() {
 		super();
@@ -80,6 +81,14 @@ public class CurrentUser {
 
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
+	}
+
+	public boolean isValidated() {
+		return validated;
+	}
+
+	public void setValidated(boolean validated) {
+		this.validated = validated;
 	}
 
 	@Override

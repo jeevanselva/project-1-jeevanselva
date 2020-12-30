@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.models.CurrentUser;
 import com.revature.models.UserCredential;
 import com.revature.services.UserService;
 
@@ -18,7 +19,7 @@ public class AuthServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("views/login.html");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login.html");
 		dispatcher.forward(request, response);
 	}
 
@@ -26,13 +27,17 @@ public class AuthServlet extends HttpServlet {
 			throws ServletException, IOException {
 		UserCredential user = om.readValue(request.getInputStream(), UserCredential.class);
 		UserService service = new UserService();
-		boolean validated = service.validateUser(user);
+		CurrentUser currentUser = service.validateUser(user);
 		HttpSession session = request.getSession();
-		if (validated == true) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("views/employee.html");
-			dispatcher.forward(request, response);
+		if (currentUser.isValidated()) {
+			response.getWriter().write(om.writeValueAsString(currentUser));
+			response.setHeader("Content-Type", "application/json");
+			response.setStatus(303);
+			response.setHeader("Location", request.getContextPath() + "/employee.html");
+			response.sendRedirect("employee");
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("views/login.html");
+
+			response.sendRedirect("login");
 		}
 
 	}

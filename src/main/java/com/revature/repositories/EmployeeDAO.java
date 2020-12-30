@@ -28,15 +28,9 @@ public class EmployeeDAO {
 
 			Connection newConnection = ConnectionFactory.getNewConnection();
 
-			String sql = "select ers_reimbursement.reimb_id, ers_reimbursement.reimb_amount,"
-					+ " ers_reimbursement.reimb_description, ers_reimbursement.reimb_submitted,"
-					+ " ers_reimbursement.reimb_resolved, ers_reimbursement.reimb_resolver, "
-					+ "ers_reimbursement_status.reimb_status, ers_reimbursement_type.reimb_type"
-					+ " from ers_reimbursement inner join ers_reimbursement_status on "
-					+ "ers_reimbursement_status.reimb_status_id=ers_reimbursement.reimb_status_id"
-					+ " inner join ers_reimbursement_type on "
-					+ "ers_reimbursement.reimb_type_id=ers_reimbursement_type.reimb_type_id " + "where reimb_author=?;";
-
+			String sql = "select reimb_id, reimb_amount, reimb_description, reimb_submitted,"
+					+ " reimb_resolved, reimb_resolver, reimb_status, reimb_type from ers_reimbursement"
+					+ " where reimb_author=?;";
 			PreparedStatement reimbursementStatement = newConnection.prepareStatement(sql);
 			reimbursementStatement.setInt(1, this.user.getUserId());
 			ResultSet result = reimbursementStatement.executeQuery();

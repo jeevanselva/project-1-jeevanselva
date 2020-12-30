@@ -10,6 +10,7 @@ public class ConnectionFactory {
 
 	public ConnectionFactory() {
 		try {
+			DriverManager.registerDriver(new org.postgresql.Driver());
 			String url;
 			String userName;
 			String password;

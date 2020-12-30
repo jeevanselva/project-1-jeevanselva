@@ -15,8 +15,7 @@ public class UserDAODebugger {
 		u.setPassword("j9mSFOzSJ");
 		UserDAO dao = new UserDAO();
 		CurrentUser cu = dao.validatUserAndPassword(u);
-		boolean validated = s.validateUser(u);
-		System.out.println(validated);
+
 	}
 
 }

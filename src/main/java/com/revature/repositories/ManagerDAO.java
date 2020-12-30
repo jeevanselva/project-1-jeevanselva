@@ -24,14 +24,7 @@ public class ManagerDAO {
 		try {
 			Connection newConnection = ConnectionFactory.getNewConnection();
 
-			String sql = "select ers_reimbursement.reimb_author, ers_reimbursement.reimb_id, ers_reimbursement.reimb_amount,"
-					+ " ers_reimbursement.reimb_description, ers_reimbursement.reimb_submitted,"
-					+ " ers_reimbursement.reimb_resolved, ers_reimbursement.reimb_resolver, "
-					+ "ers_reimbursement_status.reimb_status, ers_reimbursement_type.reimb_type"
-					+ " from ers_reimbursement inner join ers_reimbursement_status on "
-					+ "ers_reimbursement_status.reimb_status_id=ers_reimbursement.reimb_status_id"
-					+ " inner join ers_reimbursement_type on "
-					+ "ers_reimbursement.reimb_type_id=ers_reimbursement_type.reimb_type_id;";
+			String sql = "select * from ers_reimbursement;";
 
 			PreparedStatement reimbursementStatement = newConnection.prepareStatement(sql);
 			ResultSet result = reimbursementStatement.executeQuery();
@@ -57,18 +50,51 @@ public class ManagerDAO {
 
 	}
 
+	public ListOfReimbursements readPendingReimbursements() {
+
+		ListOfReimbursements list = new ListOfReimbursements();
+		Reimbursement reimbursement = new Reimbursement();
+
+		try {
+			Connection newConnection = ConnectionFactory.getNewConnection();
+
+			String sql = "select * from ers_reimbursement where reimb_status='pending';";
+
+			PreparedStatement reimbursementStatement = newConnection.prepareStatement(sql);
+			ResultSet result = reimbursementStatement.executeQuery();
+
+			while (result.next()) {
+				reimbursement.setAuthorId(result.getInt("reimb_author"));
+				reimbursement.setReimbursementId(result.getInt("reimb_id"));
+				reimbursement.setAmount(result.getInt("reimb_amount"));
+				reimbursement.setDescription(result.getString("reimb_description"));
+				reimbursement.setStatus(result.getString("reimb_status"));
+				reimbursement.setType(result.getString("reimb_type"));
+				reimbursement.setDateSubmitted(result.getTimestamp("reimb_submitted"));
+				list.addReimbursement(reimbursement);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
 	public void updateReimbursementStatus(Reimbursement reimbursement) {
 
 		try {
 			Connection newConnection = ConnectionFactory.getNewConnection();
 
-			String sql = "update ers_reimbursement_status set reimb_status " + "= ? from ers_reimbursement where "
-					+ " ers_reimbursement_status.reimb_status_id=ers_reimbursement.reimb_status_id"
-					+ " and ers_reimbursement.reimb_id = ? returning " + "ers_reimbursement_status.reimb_status;";
+			String sql = "update ers_reimbursement set reimb_status = ?, "
+					+ "reimb_resolved = ?, reimb_resolver = ? where reimb_id = ?" + " returning reimb_author;";
 
 			PreparedStatement updateReimbursementStatement = newConnection.prepareStatement(sql);
 			updateReimbursementStatement.setString(1, reimbursement.getStatus());
-			updateReimbursementStatement.setInt(2, reimbursement.getReimbursementId());
+			updateReimbursementStatement.setTimestamp(2, reimbursement.getDateResolved());
+			updateReimbursementStatement.setInt(3, reimbursement.getResolverId());
+			updateReimbursementStatement.setInt(4, reimbursement.getReimbursementId());
 			ResultSet result = updateReimbursementStatement.executeQuery();
 
 		} catch (SQLException e) {
