@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import com.revature.models.CurrentUser;
 import com.revature.models.EmployeeReimbursement;
 import com.revature.models.ListOfReimbursements;
+import com.revature.models.ReimbursementSubmission;
 import com.revature.util.ConnectionFactory;
 
 public class EmployeeDAO {
@@ -19,10 +21,36 @@ public class EmployeeDAO {
 		this.cf = new ConnectionFactory();
 	}
 
+	public EmployeeDAO() {
+		this.cf = new ConnectionFactory();
+	}
+
+	public void newReimbursement(ReimbursementSubmission r) {
+
+		try {
+
+			Connection newConnection = ConnectionFactory.getNewConnection();
+
+			String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_status,"
+					+ " reimb_type, reimb_description, reimb_author) values (?,?,?,?,?,?)" + " returning reimb_id;";
+			PreparedStatement reimbursementStatement = newConnection.prepareStatement(sql);
+			reimbursementStatement.setDouble(1, r.getAmount());
+			reimbursementStatement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+			reimbursementStatement.setString(3, "pending");
+			reimbursementStatement.setString(4, r.getType());
+			reimbursementStatement.setString(5, r.getDescription());
+			reimbursementStatement.setInt(6, r.getAuthorId());
+			ResultSet result = reimbursementStatement.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public ListOfReimbursements readAllReimbursements() {
 
 		ListOfReimbursements list = new ListOfReimbursements();
-		EmployeeReimbursement reimbursement = new EmployeeReimbursement();
 
 		try {
 
@@ -36,6 +64,7 @@ public class EmployeeDAO {
 			ResultSet result = reimbursementStatement.executeQuery();
 
 			while (result.next()) {
+				EmployeeReimbursement reimbursement = new EmployeeReimbursement();
 				reimbursement.setReimbursementId(result.getInt("reimb_id"));
 				reimbursement.setAmount(result.getInt("reimb_amount"));
 				reimbursement.setDescription(result.getString("reimb_description"));

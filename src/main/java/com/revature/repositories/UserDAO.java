@@ -17,7 +17,6 @@ public class UserDAO {
 		this.cf = new ConnectionFactory();
 	}
 
-//modify query to get user role
 	public CurrentUser validatUserAndPassword(UserCredential user) {
 		CurrentUser currentUser = new CurrentUser();
 		try {

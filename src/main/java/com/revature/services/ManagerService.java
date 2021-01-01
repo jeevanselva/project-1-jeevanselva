@@ -1,7 +1,7 @@
 package com.revature.services;
 
 import com.revature.models.ListOfReimbursements;
-import com.revature.models.Reimbursement;
+import com.revature.models.Resolved;
 import com.revature.repositories.ManagerDAO;
 
 public class ManagerService {
@@ -16,7 +16,7 @@ public class ManagerService {
 		return list;
 	}
 
-	public void updateReimbursement(Reimbursement reimbursement) {
+	public void resolveReimbursement(Resolved reimbursement) {
 		dao.updateReimbursementStatus(reimbursement);
 	}
 

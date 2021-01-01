@@ -11,6 +11,14 @@ public class CurrentUser {
 		super();
 	}
 
+	public CurrentUser(int id, String fname, String lname, String role, boolean validate) {
+		this.userId = id;
+		this.firstName = fname;
+		this.lastName = lname;
+		this.userRole = role;
+		this.validated = validate;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

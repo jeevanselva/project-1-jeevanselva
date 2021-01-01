@@ -6,7 +6,6 @@ public class UserCredential {
 
 	public UserCredential() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getUserName() {

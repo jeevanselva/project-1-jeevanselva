@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import com.revature.models.ListOfReimbursements;
 import com.revature.models.Reimbursement;
+import com.revature.models.Resolved;
 import com.revature.util.ConnectionFactory;
 
 public class ManagerDAO {
@@ -19,7 +21,6 @@ public class ManagerDAO {
 	public ListOfReimbursements readEmployeeReimbursements() {
 
 		ListOfReimbursements list = new ListOfReimbursements();
-		Reimbursement reimbursement = new Reimbursement();
 
 		try {
 			Connection newConnection = ConnectionFactory.getNewConnection();
@@ -30,12 +31,13 @@ public class ManagerDAO {
 			ResultSet result = reimbursementStatement.executeQuery();
 
 			while (result.next()) {
+				Reimbursement reimbursement = new Reimbursement();
 				reimbursement.setAuthorId(result.getInt("reimb_author"));
 				reimbursement.setReimbursementId(result.getInt("reimb_id"));
 				reimbursement.setAmount(result.getInt("reimb_amount"));
 				reimbursement.setDescription(result.getString("reimb_description"));
 				reimbursement.setStatus(result.getString("reimb_status"));
-				reimbursement.setType(result.getString("reimb_status"));
+				reimbursement.setType(result.getString("reimb_type"));
 				reimbursement.setDateSubmitted(result.getTimestamp("reimb_submitted"));
 				reimbursement.setDateResolved(result.getTimestamp("reimb_resolved"));
 				reimbursement.setResolverId(result.getInt("reimb_resolver"));
@@ -82,7 +84,7 @@ public class ManagerDAO {
 
 	}
 
-	public void updateReimbursementStatus(Reimbursement reimbursement) {
+	public void updateReimbursementStatus(Resolved reimbursement) {
 
 		try {
 			Connection newConnection = ConnectionFactory.getNewConnection();
@@ -92,7 +94,7 @@ public class ManagerDAO {
 
 			PreparedStatement updateReimbursementStatement = newConnection.prepareStatement(sql);
 			updateReimbursementStatement.setString(1, reimbursement.getStatus());
-			updateReimbursementStatement.setTimestamp(2, reimbursement.getDateResolved());
+			updateReimbursementStatement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
 			updateReimbursementStatement.setInt(3, reimbursement.getResolverId());
 			updateReimbursementStatement.setInt(4, reimbursement.getReimbursementId());
 			ResultSet result = updateReimbursementStatement.executeQuery();

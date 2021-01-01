@@ -1,8 +1,8 @@
 let userId = 2
 async function reimbursementSubmission(e){
     e.preventDefault();
-    let type = document.getElementById("loan-type").value
-    let amount = document.getElementById("inputeAmount").value
+    let type = document.getElementById("loanType").value
+    let amount = document.getElementById("inputAmount").value
     let description = document.getElementById("inputText").value
 
     const reimbursement = {
@@ -13,7 +13,7 @@ async function reimbursementSubmission(e){
     }
 
     try {
-    let response = await fetch ("http://localhost:8080/ers/login", {
+    let response = await fetch ("http://localhost:8080/ers/reimbursement", {
         method: "POST",
         body: JSON.stringify(reimbursement),
         headers: {
@@ -21,12 +21,12 @@ async function reimbursementSubmission(e){
         }
     })
 
-    let data = await response.json
-    console.log("test")
+    let data = await response.json()
+    console.log(data.reimbursementId)
 
 } catch (e) {
     console.log(e);
 }
 }
 
-document.getElementsByTagName("form")[0].addEventListener('submit',loginSubmission);
+document.getElementsByTagName("form")[0].addEventListener('submit',reimbursementSubmission);

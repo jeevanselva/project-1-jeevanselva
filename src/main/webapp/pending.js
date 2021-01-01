@@ -1,4 +1,4 @@
-async function loginSubmission(e){
+async function checkPending(e){
     e.preventDefault();
     let userName = document.getElementById("inputUserName").value
     let password = document.getElementById("inputPassword").value
