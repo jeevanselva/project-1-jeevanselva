@@ -10,35 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.CurrentUser;
 import com.revature.models.ListOfReimbursements;
-import com.revature.models.ReimbursementSubmission;
 import com.revature.services.EmployeeService;
 
-public class EmployeeReimbursementServlet extends HttpServlet {
+public class PastReimbursementsServlet extends HttpServlet {
 	ObjectMapper om = new ObjectMapper();
 
-	public EmployeeReimbursementServlet() {
+	public PastReimbursementsServlet() {
 		super();
-
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		CurrentUser user = om.readValue(request.getInputStream(), CurrentUser.class);
-		EmployeeService service = new EmployeeService(user);
-		ListOfReimbursements list = service.getPastReimbursements();
-		response.setHeader("Content-Type", "application/json");
-		response.getWriter().write(om.writeValueAsString(list));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		EmployeeService service = new EmployeeService();
-		ObjectMapper om = new ObjectMapper();
-		ReimbursementSubmission r = om.readValue(request.getInputStream(), ReimbursementSubmission.class);
-		service.submitReimbursement(r);
+		CurrentUser user = om.readValue(request.getInputStream(), CurrentUser.class);
+		EmployeeService service = new EmployeeService(user);
+		ListOfReimbursements list = service.getPastReimbursements();
+		response.setStatus(200);
 		response.setHeader("Content-Type", "application/json");
-		response.getWriter().write(om.writeValueAsString(r));
+		response.getWriter().write(om.writeValueAsString(list));
 	}
 
 }

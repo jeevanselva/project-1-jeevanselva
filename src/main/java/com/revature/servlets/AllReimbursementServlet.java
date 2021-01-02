@@ -12,10 +12,10 @@ import com.revature.models.ListOfReimbursements;
 import com.revature.models.Resolved;
 import com.revature.services.ManagerService;
 
-public class ManagerReimbursementServlet extends HttpServlet {
+public class AllReimbursementServlet extends HttpServlet {
 	ObjectMapper om;
 
-	public ManagerReimbursementServlet() {
+	public AllReimbursementServlet() {
 		super();
 		this.om = new ObjectMapper();
 	}
@@ -29,12 +29,6 @@ public class ManagerReimbursementServlet extends HttpServlet {
 		response.getWriter().write(om.writeValueAsString(list));
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		ManagerService service = new ManagerService();
-		Resolved reimbursement = om.readValue(request.getInputStream(), Resolved.class);
-		service.resolveReimbursement(reimbursement);
-		response.setStatus(200);
-	}
+
 
 }

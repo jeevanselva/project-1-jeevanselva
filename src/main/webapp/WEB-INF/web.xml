@@ -42,7 +42,7 @@
     <description></description>
     <display-name>ReimbursementServlet</display-name>
     <servlet-name>ReimbursementServlet</servlet-name>
-    <servlet-class>com.revature.servlets.EmployeeReimbursementServlet</servlet-class>
+    <servlet-class>com.revature.servlets.SubmitReimbursementServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReimbursementServlet</servlet-name>
@@ -52,7 +52,7 @@
     <description></description>
     <display-name>ManagerReimbursementServlet</display-name>
     <servlet-name>ManagerReimbursementServlet</servlet-name>
-    <servlet-class>com.revature.servlets.ManagerReimbursementServlet</servlet-class>
+    <servlet-class>com.revature.servlets.AllReimbursementServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ManagerReimbursementServlet</servlet-name>
@@ -72,7 +72,7 @@
     <description></description>
     <display-name>EmployeeReimbursementServlet</display-name>
     <servlet-name>EmployeeReimbursementServlet</servlet-name>
-    <servlet-class>com.revature.servlets.EmployeeReimbursementServlet</servlet-class>
+    <servlet-class>com.revature.servlets.SubmitReimbursementServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>EmployeeReimbursementServlet</servlet-name>
@@ -87,5 +87,25 @@
   <servlet-mapping>
     <servlet-name>ManagerServlet</servlet-name>
     <url-pattern>/manager/main</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PastReimbursementsServlet</display-name>
+    <servlet-name>PastReimbursementsServlet</servlet-name>
+    <servlet-class>com.revature.servlets.PastReimbursementsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PastReimbursementsServlet</servlet-name>
+    <url-pattern>/PastReimbursementsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ResolveReimbursementServlet</display-name>
+    <servlet-name>ResolveReimbursementServlet</servlet-name>
+    <servlet-class>com.revature.servlets.ResolveReimbursementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResolveReimbursementServlet</servlet-name>
+    <url-pattern>/ResolveReimbursementServlet</url-pattern>
   </servlet-mapping>
 </web-app>

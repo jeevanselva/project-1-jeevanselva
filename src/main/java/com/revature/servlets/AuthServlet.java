@@ -21,8 +21,10 @@ public class AuthServlet extends HttpServlet {
 		UserService service = new UserService();
 		CurrentUser currentUser = service.validateUser(user);
 		if (currentUser.isValidated()) {
+			response.setStatus(200);
 			response.setHeader("Content-Type", "application/json");
 			response.getWriter().write(om.writeValueAsString(currentUser));
+
 		}
 
 	}
