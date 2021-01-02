@@ -19,8 +19,8 @@ public class ServletDebugger extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CurrentUser user = new CurrentUser(2, "Jeevan", "Selva", "manager", true);
-		CurrentUser user2 = new CurrentUser(2, "Jay", "Silva", "employee", true);
+		CurrentUser user = new CurrentUser(2, "Jeevan", "Selva", "manager");
+		CurrentUser user2 = new CurrentUser(2, "Jay", "Silva", "employee");
 		response.setHeader("Content-Type", "application/json");
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.getWriter().write(om.writeValueAsString(user));
@@ -29,7 +29,7 @@ public class ServletDebugger extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CurrentUser user = new CurrentUser(2, "Jeevan", "Selva", "manager", true);
+		CurrentUser user = new CurrentUser(2, "Jeevan", "Selva", "manager");
 		response.setHeader("Content-Type", "application/json");
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.getWriter().write(om.writeValueAsString(user));

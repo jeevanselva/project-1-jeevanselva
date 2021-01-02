@@ -20,12 +20,10 @@ public class AuthServlet extends HttpServlet {
 		UserCredential user = om.readValue(request.getInputStream(), UserCredential.class);
 		UserService service = new UserService();
 		CurrentUser currentUser = service.validateUser(user);
-		if (currentUser.isValidated()) {
-			response.setStatus(200);
-			response.setHeader("Content-Type", "application/json");
-			response.getWriter().write(om.writeValueAsString(currentUser));
-
-		}
-
+		response.setStatus(200);
+		response.setHeader("Content-Type", "application/json");
+		response.getWriter().write(om.writeValueAsString(currentUser));
+		System.out.println("This was called!");
 	}
+
 }

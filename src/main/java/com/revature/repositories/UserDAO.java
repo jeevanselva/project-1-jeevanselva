@@ -36,7 +36,6 @@ public class UserDAO {
 				currentUser.setLastName(result.getString("user_last_name"));
 				currentUser.setUserId(result.getInt("ers_users_id"));
 				currentUser.setUserRole(result.getString("user_role"));
-				currentUser.setValidated(true);
 			}
 
 		} catch (SQLException e) {

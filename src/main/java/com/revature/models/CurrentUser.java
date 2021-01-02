@@ -5,18 +5,16 @@ public class CurrentUser {
 	private String firstName;
 	private String lastName;
 	private String userRole;
-	private boolean validated;
 
 	public CurrentUser() {
 		super();
 	}
 
-	public CurrentUser(int id, String fname, String lname, String role, boolean validate) {
+	public CurrentUser(int id, String fname, String lname, String role) {
 		this.userId = id;
 		this.firstName = fname;
 		this.lastName = lname;
 		this.userRole = role;
-		this.validated = validate;
 	}
 
 	@Override
@@ -89,14 +87,6 @@ public class CurrentUser {
 
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
-	}
-
-	public boolean isValidated() {
-		return validated;
-	}
-
-	public void setValidated(boolean validated) {
-		this.validated = validated;
 	}
 
 	@Override

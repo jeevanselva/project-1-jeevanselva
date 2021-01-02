@@ -1,0 +1,3 @@
+[submodule "ers-static"]
+	path = ers-static
+	url = ./ers-static
